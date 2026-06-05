@@ -23,3 +23,6 @@ scripts/config -d leds_trigger
 scripts/config -d drm
 # Don't need sound.
 scripts/config -d sound
+# So we can run HMM tests.
+scripts/config -e device_private
+scripts/config -e test_hmm
