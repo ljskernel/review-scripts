@@ -8,3 +8,7 @@ scripts/config -e werror
 scripts/config -e kasan
 scripts/config -e debug_kmemleak
 scripts/config -e prove_locking
+
+scripts/config -e ptdump
+scripts/config -e ptdump_debugfs
+scripts/config -e debug_wx
