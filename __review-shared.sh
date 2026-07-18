@@ -889,6 +889,9 @@ function assert_has_compiler()
 		error "$FUNCNAME() requires arch parameter"
 	fi
 
+	# Only useful for gcc
+	return
+
 	if ! has_compiler $arch; then
 		error "Cannot find $arch compiler tools with prefix $prefix"
 		exit 1
@@ -908,10 +911,12 @@ function get_arch_make_opts()
 		error "$FUNCNAME() requires arch parameter"
 	fi
 
-	assert_has_compiler $arch
-	local prefix=$(get_compiler_prefix $arch)
+	# Only useful for gcc
+	#assert_has_compiler $arch
+	#local prefix=$(get_compiler_prefix $arch)
+	#echo "ARCH=$arch CROSS_COMPILE=$prefix"
 
-	echo "ARCH=$arch CROSS_COMPILE=$prefix"
+	echo "ARCH=$arch"
 }
 
 # Simply drop all module options from kernel config.
@@ -924,9 +929,10 @@ function __clean_arch_config()
 {
 	local arch=$1
 
-	if has_compiler $arch; then
+	# Only useful for gcc
+#	if has_compiler $arch; then
 		make $(get_arch_make_opts $arch) mrproper &>/dev/null
-	fi
+#	fi
 }
 
 # Nuke configs for all arches.
