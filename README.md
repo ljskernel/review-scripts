@@ -209,6 +209,9 @@ diff comparisons.
 * `review-mk-nosym` - Same as `review-mk` but does not build
   compile_commands.json symbol information for everything.
 
+* `review-check-vma-tests [name] <version>` - Checks that the memory management
+  VMA tests are pass at each revision.
+
 ## Credit
 
 Thanks to [Tomáš Janoušek](https://genserver.social/users/liskin) for his
