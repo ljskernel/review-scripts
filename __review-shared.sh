@@ -1048,5 +1048,15 @@ function do_build_nosym()
 function do_build()
 {
 	do_build_nosym $@
-	scripts/clang-tools/gen_compile_commands.py vmlinux.a arch/x86/boot/ || true
+
+	# Config-only invocations (olddefconfig etc.) leave no vmlinux.a -
+	# nothing to index. Index the boot dir of whatever ARCH= says
+	# rather than hardcoding x86.
+	local arch=x86 __a
+	for __a in "$@"; do
+		[[ "$__a" == ARCH=* ]] && arch=${__a#ARCH=}
+	done
+	if [[ -f vmlinux.a ]]; then
+		scripts/clang-tools/gen_compile_commands.py vmlinux.a "arch/$arch/boot/" || true
+	fi
 }
