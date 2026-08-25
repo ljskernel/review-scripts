@@ -26,3 +26,4 @@ scripts/config -d sound
 # So we can run HMM tests.
 scripts/config -e device_private
 scripts/config -e test_hmm
+scripts/config -e arm64_16k_pages
