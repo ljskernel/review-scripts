@@ -692,7 +692,8 @@ function vng_run_emulated()
 	    --qemu-opts="-M virt,virtualization=on -cpu max" \
 	    --append "nokaslr" --append "no_hash_pointers" \
 	    --append "panic_on_warn=1" \
-	    --append "panic_on_oops=1" "$@"
+	    --append "panic_on_oops=1" \
+	    --append "tcg_guest" "$@" # tcg_guest notifies guests this is tcg :)
 }
 
 function __run_mm_tests()
