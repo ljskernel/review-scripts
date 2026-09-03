@@ -182,10 +182,14 @@ diff comparisons.
 
 * `review-vng [args...]` - Execute virtme-ng with sensible configuration options
   for development - verbose output for dmesg logs, panic-on-warning,oops and a
-  configuration that is known-working with mm selftests.
+  configuration that is known-working with mm selftests. It emulates a NUMA
+  fabric and uses 16 GB and 16 CPUs by default.
 
 * `review-vng-debug [args...]` - Same as `review-vng` but with more noise useful
   for debugging.
+
+* `review-vng-emul [args...]` - Same as `review-vng-debug`, but forces TCG
+  emulation and disables NUMA emulation.
 
 * `review-ls` - Lists all review branches in a kernel tree.
 

@@ -686,7 +686,16 @@ function vng_run_debug()
 {
 	vng_run -v  \
 		--append "panic_on_warn=1" \
-		--append "panic_on_oops=1" $@
+		--append "panic_on_oops=1" "$@"
+}
+
+function vng_run_emulated()
+{
+	vng -v --overlay-rwdir /mnt -m 8G --disable-kvm \
+	    --qemu-opts="-M virt,virtualization=on -cpu max" \
+	    --append "nokaslr" --append "no_hash_pointers" \
+	    --append "panic_on_warn=1" \
+	    --append "panic_on_oops=1" "$@"
 }
 
 function __run_mm_tests()
