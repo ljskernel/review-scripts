@@ -696,7 +696,8 @@ function vng_run_emulated()
 	    --append "nokaslr" --append "no_hash_pointers" \
 	    --append "panic_on_warn=1" \
 	    --append "panic_on_oops=1" \
-	    --append "kvm-arm.mode=nested" "$@"
+	    --append "kvm-arm.mode=nested" \
+	    --append "tcg_guest" "$@" # tcg_guest notifies guests this is tcg :)
 }
 
 function __run_mm_tests()
