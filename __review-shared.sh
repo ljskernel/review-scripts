@@ -1048,7 +1048,7 @@ EOF
 # compile_commands.json.
 function do_build_nosym()
 {
-	make -j $(nproc) LLVM=1 $@
+	make -j $(nproc) KRUSTFLAGS=-Zthreads=8 LLVM=1 $@
 }
 
 # Build already configured kernel.
