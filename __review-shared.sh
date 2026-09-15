@@ -676,7 +676,7 @@ function vng_run()
 #	    --numa 4G,cpus=0-3 --numa 4G,cpus=4-7 -P \
 #	    --qemu-opts="-smp 8,sockets=2,cores=4,threads=1" \
 
-	vng --overlay-rwdir /mnt -m 8G \
+	vng --overlay-rwdir /mnt -m 4G \
 	    --qemu-opts="-M virt,virtualization=on" \
 	    --append "nokaslr" --append "no_hash_pointers" \
 	    --append "kvm-arm.mode=nested" $@
