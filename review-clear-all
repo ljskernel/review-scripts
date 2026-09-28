@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e; set -o pipefail; source __review-shared.sh
+
+check_prep
+
+for branch in $(get_all_review_branches); do
+	review-stop "$(review_branch_to_name $branch)"
+done
+
+clear_all_review_branches $(get_curr_ref)

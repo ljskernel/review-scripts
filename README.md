@@ -87,6 +87,8 @@ diff comparisons.
 * `review-clear-branches [name]` - Just clear the branches, leave the review
   active.
 
+* `review-clear-all` - Clear everything (tag and branches) for all reviews.
+
 * `review-diff [name] <version>` or `review-diff [name] <prev version>
   <version>` - Provide a side-by-side range-diff between two versions in the
   series, assuming b4 was able to retrieve versions successfully (if not, use

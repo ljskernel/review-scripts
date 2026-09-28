@@ -349,6 +349,22 @@ function get_review_branch()
 	echo "review/$name-v$ver"
 }
 
+# Convert a review branch to a name.
+#
+# Params:
+#	$1 - the branch name to convert.
+function review_branch_to_name()
+{
+	local branch=$1
+
+	if [[ $# -lt 1 ]]; then
+		error "$FUNCNAME() requires branch parameter"
+	fi
+
+	[[ $branch =~ ^review/(.+)-v[0-9]+$ ]]
+	printf '%s\n' "${BASH_REMATCH[1]}"
+}
+
 # b4 shazam the specified version of the series into the current branch.
 #
 # Params:
@@ -408,6 +424,13 @@ function get_review_branches()
 		grep -E "^review/$name-v[0-9]+$"
 }
 
+# Retrieve all review branches.
+function get_all_review_branches()
+{
+	git for-each-ref --format='%(refname:short)' refs/heads/ | \
+		grep -E "^review/[a-z0-9]+-v[0-9]+$"
+}
+
 # Clear down review branches for specified name.
 #
 # Params:
@@ -424,6 +447,34 @@ function clear_review_branches()
 	return_branch="$(ref_to_maybe_branch $return_branch)"
 
 	local branches="$(get_review_branches $name)"
+	# If we're on one of the review branches, need to move off.
+	if [[ $branches =~ "$(get_curr_ref)" ]]; then
+		if rev_exists $return_branch; then
+			git checkout -q $return_branch
+		fi
+	fi
+
+	if [[ -n "$branches" ]]; then
+		git branch -Df $branches
+	else
+		true
+	fi
+}
+
+# Clear down all review branches.
+#
+# Params:
+#	$2 - ref to return to should we find ourselves on a review branch
+function clear_all_review_branches()
+{
+	local return_branch=$1
+
+	if [[ $# -lt 1 ]]; then
+		error "$FUNCNAME() requires return_branch parameter"
+	fi
+	return_branch="$(ref_to_maybe_branch $return_branch)"
+
+	local branches="$(get_all_review_branches)"
 	# If we're on one of the review branches, need to move off.
 	if [[ $branches =~ "$(get_curr_ref)" ]]; then
 		if rev_exists $return_branch; then
